@@ -1,0 +1,21 @@
+.navbar {
+    background-color: green;
+    grid-area: nav;
+    height: 98vh;
+    padding: 20px;
+}
+
+.item {
+    color: white;
+    text-decoration: none;
+}
+
+
+.active {
+    color: gold;
+    text-decoration: none;
+}
+
+.friends {
+    margin-top: 3rem;
+}

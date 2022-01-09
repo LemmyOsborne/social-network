@@ -1,0 +1,28 @@
+
+
+.top_image img{
+    height: 10rem;
+    width: 100%;
+}
+
+.profile {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+.profile_photo {
+    width: 40%;
+}
+
+.profile_description {
+    color: white;
+}
+
+.name {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.item {
+    color: white;
+}
