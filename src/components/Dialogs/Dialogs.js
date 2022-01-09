@@ -7,9 +7,9 @@ import React from "react";
 
 function Dialogs(props) {
 
-    let dialogsElements = props.dialogs.map(dialog => <Dialog name={dialog.name} id={dialog.id} />);
+    let dialogsElements = props.dialogs.map(dialog => <Dialog name={dialog.name} key={dialog.id} id={dialog.id} />);
 
-    let messagesElements = props.messages.map(message => <Message id={message.id} message={message.message}  />)
+    let messagesElements = props.messages.map(message => <Message message={message.message} key={message.id} id={message.id}   />)
 
     return (
         <div className={s.dialogs}>
