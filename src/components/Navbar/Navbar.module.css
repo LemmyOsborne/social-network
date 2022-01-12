@@ -1,7 +1,6 @@
 .navbar {
     background-color: green;
     grid-area: nav;
-    height: 98vh;
     padding: 20px;
 }
 

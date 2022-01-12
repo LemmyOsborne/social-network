@@ -16,7 +16,8 @@ const User = (props) => {
                             {props.user.name}
                         </div>
                         <div>
-                            {props.user.status}
+                            <h4 className={s.statusHeader}>Status:</h4>
+                            {props.user.status != null ? props.user.status : "Here might be status" }
                         </div>
                     </div>
                 </div>
