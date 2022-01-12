@@ -1,4 +1,5 @@
 import s from "./User.module.css"
+import userPhoto from "../../../assets/user.png"
 
 const User = (props) => {
     return (
@@ -7,7 +8,7 @@ const User = (props) => {
                 <div>
                     <div>
                         <img className={s.userPhoto}
-                             src={props.user.photos.small != null ? props.user.photos.small : "https://avatarfiles.alphacoders.com/153/thumb-1920-153393.png"}/>
+                             src={props.user.photos.small != null ? props.user.photos.small : userPhoto}/>
                     </div>
                 </div>
                 <div className={s.description}>
