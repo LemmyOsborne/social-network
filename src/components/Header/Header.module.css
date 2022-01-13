@@ -6,3 +6,18 @@
 .header img {
     height: 100%;
 }
+
+.login {
+    float: right;
+    margin: 15px 50px
+}
+
+.login a {
+    color: white;
+    text-decoration: none;
+}
+
+.authUserPhoto {
+    width: 10%;
+    border-radius: 100%;
+}
