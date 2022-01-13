@@ -1,27 +1,33 @@
 import s from "./Navbar.module.css";
-import {NavLink} from "react-router-dom";
-import Friends from "./Friends/Friends";
+import {NavLink, useLocation} from "react-router-dom";
 
 function Navbar(props) {
+    let location = useLocation()
     return (
         <nav className={s.navbar}>
             <div>
-                <NavLink to="/profile" className={navData => navData.isActive ? s.active : s.item}>Profile</NavLink>
+                {location.pathname === "/profile" ? <NavLink to="/profile" className={s.active}>Profile</NavLink> :
+                    <NavLink to="/profile" className={s.item}>Profile</NavLink>}
             </div>
             <div>
-                <NavLink to="/dialogs" className={navData => navData.isActive ? s.active : s.item}>Messages</NavLink>
+                {location.pathname === "/dialogs" ? <NavLink to="/dialogs" className={s.active}>Messages</NavLink> :
+                    <NavLink to="/dialogs" className={s.item}>Messages</NavLink>}
             </div>
             <div>
-                <NavLink to="/news" className={navData => navData.isActive ? s.active : s.item}>News</NavLink>
+                {location.pathname === "/news" ? <NavLink to="/news" className={s.active}>News</NavLink> :
+                    <NavLink to="/news" className={s.item}>News</NavLink>}
             </div>
             <div>
-                <NavLink to="/music" className={navData => navData.isActive ? s.active : s.item}>Music</NavLink>
+                {location.pathname === "/music" ? <NavLink to="/music" className={s.active}>Music</NavLink> :
+                    <NavLink to="/music" className={s.item}>Music</NavLink>}
             </div>
             <div>
-                <NavLink to="/users" className={navData => navData.isActive ? s.active : s.item}>Users</NavLink>
+                {location.pathname === "/users" ? <NavLink to="/users" className={s.active}>Users</NavLink> :
+                    <NavLink to="/users" className={s.item}>Users</NavLink>}
             </div>
             <div>
-                <NavLink to="/settings" className={navData => navData.isActive ? s.active : s.item}>Settings</NavLink>
+                {location.pathname === "/settings" ? <NavLink to="/settings" className={s.active}>Settings</NavLink> :
+                    <NavLink to="/settings" className={s.item}>Settings</NavLink>}
             </div>
         </nav>
     );

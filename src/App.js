@@ -2,7 +2,7 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Settings from "./components/Settings/Settings";
 import Music from "./components/Music/Music";
 import News from "./components/News/News";
@@ -12,24 +12,24 @@ import UsersContainer from "./components/Users/UsersContainer";
 
 function App() {
     return (
-        <BrowserRouter>
+        <Router>
             <div className="App">
                 <div className="container">
                     <Header/>
                     <Navbar/>
                     <div className="app-content-wrapper">
-                        <Routes>
-                            <Route path="/profile" element={<Profile/>}/>
-                            <Route path="/dialogs" element={<DialogsContainer/>}/>
-                            <Route path="/music" element={<Music/>}/>
-                            <Route path="/news" element={<News/>}/>
-                            <Route path="/users" element={<UsersContainer/>}/>
-                            <Route path="/settings" element={<Settings/>}/>
-                        </Routes>
+                        <Switch>
+                            <Route path="/profile/:userId?"><Profile/></Route>
+                            <Route path="/dialogs"><DialogsContainer/></Route>
+                            <Route path="/music"><Music/></Route>
+                            <Route path="/news"><News/></Route>
+                            <Route path="/users"><UsersContainer/></Route>
+                            <Route path="/settings"><Settings/></Route>
+                        </Switch>
                     </div>
                 </div>
             </div>
-        </BrowserRouter>
+        </Router>
     );
 }
 

@@ -1,5 +1,6 @@
 import s from "./User.module.css"
 import userPhoto from "../../../assets/user.png"
+import {NavLink} from "react-router-dom";
 
 const User = (props) => {
     return (
@@ -7,8 +8,10 @@ const User = (props) => {
             <div className={s.user}>
                 <div>
                     <div>
-                        <img className={s.userPhoto}
-                             src={props.user.photos.small != null ? props.user.photos.small : userPhoto}/>
+                        <NavLink to={"/profile/" + props.user.id}>
+                            <img className={s.userPhoto}
+                                 src={props.user.photos.small != null ? props.user.photos.small : userPhoto}/>
+                        </NavLink>
                     </div>
                 </div>
                 <div className={s.description}>
@@ -18,7 +21,7 @@ const User = (props) => {
                         </div>
                         <div>
                             <h4 className={s.statusHeader}>Status:</h4>
-                            {props.user.status != null ? props.user.status : "Here might be status" }
+                            {props.user.status != null ? props.user.status : "Here might be status"}
                         </div>
                     </div>
                 </div>

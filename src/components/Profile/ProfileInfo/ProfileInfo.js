@@ -1,14 +1,19 @@
 import s from "../Profile.module.css";
+import Preloader from "../../common/Preloader";
 
-function ProfileInfo() {
+function ProfileInfo(props) {
+    if (!props.profile) {
+        return <Preloader/>
+    }
     return (
         <div className={s.profile}>
-            <img className={s.profile_photo} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6Nyy0MfiDsyf-29ZFPfI9wrWW6CCB665WyA&usqp=CAU" alt="profile-photo" />
+            <div>
+                <img src={props.profile.photos.large}/>
+            </div>
             <div className={s.profile_description}>
-                <div className={s.name}>Lemmy Osborne</div>
-                <div className={s.item}>Date of birth: 27 December</div>
-                <div className={s.item}>City: Nizhniy Tagil</div>
-                <div className={s.item}>Education: UrFU 18'</div>
+                <div className={s.name}>{props.profile.fullName}</div>
+                <div className={s.item}>About me: {props.profile.aboutMe}</div>
+                {props.profile.lookingForAJob ? <div>Looking for a job</div> : <div>No need in a job</div>}
             </div>
         </div>
     )
