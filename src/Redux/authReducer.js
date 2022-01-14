@@ -1,17 +1,14 @@
 const SET_AUTH_USER = "SET-AUTH-USER";
-const SET_AUTH_USER_PHOTO = "SET-AUTH-USER-PHOTO";
 
 const initialState = {
     id: null,
     email: null,
     login: null,
-    isAuth: false,
-    authUserPhoto: null
+    isAuth: false
 }
 
 
 const authReducer = (state= initialState, action) => {
-    debugger
     switch (action.type) {
         case SET_AUTH_USER:
             return {
@@ -25,6 +22,5 @@ const authReducer = (state= initialState, action) => {
 }
 
 export const setAuthUserData = (id, email, login) => ({type: SET_AUTH_USER, data: {id, email, login}});
-export const setAuthUserPhoto = () => ({type: SET_AUTH_USER_PHOTO})
 
 export default authReducer;
