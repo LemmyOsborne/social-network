@@ -15,7 +15,9 @@ let Users = (props) => {
                                                            className={props.currentPage === page ? s.currentPage : ""}
                                                            onClick={() => props.onPageChanged(page)}>{page}</span>)}
             {props.users.map((user, index) => <User key={index} user={user} unfollow={props.unfollow}
-                                                    follow={props.follow}/>)}
+                                                    follow={props.follow}
+                                                    followInProgress={props.followInProgress}
+            />)}
         </div>
     )
 }
