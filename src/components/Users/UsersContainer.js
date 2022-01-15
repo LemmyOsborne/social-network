@@ -1,16 +1,17 @@
 import {connect} from "react-redux";
 import {
-    toggleIsFetching,
-    setCurrentPage, toggleInProgress, getUsersThunk, unfollowThunk, followThunk
+    setCurrentPage, getUsersThunk, unfollowThunk, followThunk
 } from "../../Redux/users-reducer";
 import Users from "./Users";
 import React from "react";
 import Preloader from "../common/Preloader";
+import withAuthRedirect from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-            this.props.getUsersThunk(this.props.currentPage, this.props.count)
+        this.props.getUsersThunk(this.props.currentPage, this.props.count)
     }
 
     onPageChanged = (page) => {
@@ -42,15 +43,16 @@ const mapStateToProps = (state) => {
         count: state.usersPage.count,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followInProgress: state.usersPage.followInProgress
+        followInProgress: state.usersPage.followInProgress,
     }
 }
 
-export default connect(mapStateToProps, {
+
+export default compose(withAuthRedirect, connect(mapStateToProps, {
     setCurrentPage,
-    toggleIsFetching,
     getUsersThunk,
     unfollowThunk,
     followThunk
-})(UsersContainer);
+}))(UsersContainer);
+
 

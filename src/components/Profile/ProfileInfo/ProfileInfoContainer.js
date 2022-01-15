@@ -1,16 +1,19 @@
 import {connect} from "react-redux";
-import {getUserProfileThunk} from "../../../Redux/profile-reducer";
+import {getUserProfileThunk, getUserStatusThunk, updateUserStatusThunk} from "../../../Redux/profile-reducer";
 import ProfileInfo from "./ProfileInfo";
 import React from "react";
 import {withRouter} from "react-router-dom";
+import {compose} from "redux";
 
 
-
-class ProfileInfoContainer extends React.Component{
+class ProfileInfoContainer extends React.Component {
     componentDidMount() {
         let userId = this.props.match.params.userId || "2"
         this.props.getUserProfileThunk(userId)
+        this.props.getUserStatusThunk(userId)
+
     }
+
     render() {
         return <ProfileInfo {...this.props} />
     }
@@ -18,8 +21,12 @@ class ProfileInfoContainer extends React.Component{
 
 let mapStateToProps = (state) => {
     return {
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        status: state.profilePage.status
     }
 }
 
-export default connect(mapStateToProps, {getUserProfileThunk})(withRouter(ProfileInfoContainer))
+export default compose(withRouter,
+    connect(mapStateToProps, {getUserProfileThunk, getUserStatusThunk,updateUserStatusThunk}))
+(ProfileInfoContainer)
+

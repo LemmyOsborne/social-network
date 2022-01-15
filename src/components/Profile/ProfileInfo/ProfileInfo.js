@@ -1,5 +1,8 @@
 import s from "../Profile.module.css";
 import Preloader from "../../common/Preloader";
+import userPhoto from "../../../assets/user.png"
+import ProfileStatus from "./ProfileStatus/ProfileStatus";
+
 
 function ProfileInfo(props) {
     if (!props.profile) {
@@ -8,12 +11,11 @@ function ProfileInfo(props) {
     return (
         <div className={s.profile}>
             <div>
-                <img src={props.profile.photos.large}/>
+                <img className={s.profilePhoto} src={props.profile.photos.large == null ? userPhoto : props.profile.photos.large }/>
             </div>
             <div className={s.profile_description}>
                 <div className={s.name}>{props.profile.fullName}</div>
-                <div className={s.item}>About me: {props.profile.aboutMe}</div>
-                {props.profile.lookingForAJob ? <div>Looking for a job</div> : <div>No need in a job</div>}
+                <ProfileStatus updateUserStatusThunk={props.updateUserStatusThunk} status={props.status}/>
             </div>
         </div>
     )

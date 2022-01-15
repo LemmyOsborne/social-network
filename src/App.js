@@ -8,9 +8,12 @@ import News from "./components/News/News";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from "./components/Login/Login";
+import withAuthRedirect from "./hoc/withAuthRedirect";
 
 
-function App() {
+
+const App = () => {
     return (
         <Router>
             <div className="App">
@@ -19,12 +22,27 @@ function App() {
                     <Navbar/>
                     <div className="app-content-wrapper">
                         <Switch>
-                            <Route path="/profile/:userId?"><Profile/></Route>
-                            <Route path="/dialogs"><DialogsContainer/></Route>
-                            <Route path="/music"><Music/></Route>
-                            <Route path="/news"><News/></Route>
-                            <Route path="/users"><UsersContainer/></Route>
-                            <Route path="/settings"><Settings/></Route>
+                            <Route path="/profile/:userId?">
+                                 <Profile/>
+                            </Route>
+                            <Route path="/dialogs">
+                                <DialogsContainer/>
+                            </Route>
+                            <Route path="/music">
+                                <Music/>
+                            </Route>
+                            <Route path="/news">
+                                <News/>
+                            </Route>
+                            <Route path="/users">
+                                <UsersContainer/>
+                            </Route>
+                            <Route path="/settings">
+                                <Settings/>
+                            </Route>
+                            <Route path="/login">
+                                <Login/>
+                            </Route>
                         </Switch>
                     </div>
                 </div>
@@ -32,5 +50,7 @@ function App() {
         </Router>
     );
 }
+
+
 
 export default App;

@@ -1,10 +1,11 @@
 import s from "./Profile.module.css"
 import MyPostsContainer from "../MyPosts/MyPostsContainer";
 import ProfileInfoContainer from "./ProfileInfo/ProfileInfoContainer";
+import withAuthRedirect from "../../hoc/withAuthRedirect";
 
 
 
-function Profile() {
+const Profile = () => {
     return (
         <div>
             <div className={s.top_image}>
@@ -18,5 +19,4 @@ function Profile() {
     );
 }
 
-export default Profile;
-
+export default withAuthRedirect(Profile);
