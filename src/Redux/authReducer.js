@@ -10,7 +10,7 @@ const initialState = {
 }
 
 
-const authReducer = (state= initialState, action) => {
+const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_AUTH_USER:
             return {
@@ -23,7 +23,8 @@ const authReducer = (state= initialState, action) => {
     }
 }
 
-export const setAuthUserData = (id, email, login) => ({type: SET_AUTH_USER, data: {id, email, login}});
+const setAuthUserData = (id, email, login, isAuth) => ({type: SET_AUTH_USER, data: {id, email, login, isAuth}});
+
 
 export const getAuthUserThunk = () => {
     return (dispatch) => {
@@ -31,7 +32,28 @@ export const getAuthUserThunk = () => {
             .then(data => {
                 if (data.resultCode === 0) {
                     let {id, login, email} = data.data
-                    dispatch(setAuthUserData(id, email, login))
+                    dispatch(setAuthUserData(id, email, login, true))
+                }
+            })
+    }
+}
+
+export const loginUserThunk = (loginData) => {
+    return (dispatch) => {
+        authAPI.loginUser(loginData)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(setAuthUserData())
+                }
+            })
+    }
+}
+export const logoutUserThunk = () => {
+    return (dispatch) => {
+        authAPI.logoutUser()
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(setAuthUserData(null, null, null, false))
                 }
             })
     }
