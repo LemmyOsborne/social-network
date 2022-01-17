@@ -9,48 +9,57 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
-import withAuthRedirect from "./hoc/withAuthRedirect";
+import {Component} from "react";
+import {connect} from "react-redux";
+import {getAuthUserThunk} from "./Redux/authReducer";
 
 
+class App extends Component {
+    componentDidMount() {
+        this.props.getAuthUserThunk()
+    }
 
-const App = () => {
-    return (
-        <Router>
-            <div className="App">
-                <div className="container">
-                    <HeaderContainer/>
-                    <Navbar/>
-                    <div className="app-content-wrapper">
-                        <Switch>
-                            <Route path="/profile/:userId?">
-                                 <Profile/>
-                            </Route>
-                            <Route path="/dialogs">
-                                <DialogsContainer/>
-                            </Route>
-                            <Route path="/music">
-                                <Music/>
-                            </Route>
-                            <Route path="/news">
-                                <News/>
-                            </Route>
-                            <Route path="/users">
-                                <UsersContainer/>
-                            </Route>
-                            <Route path="/settings">
-                                <Settings/>
-                            </Route>
-                            <Route path="/login">
-                                <Login/>
-                            </Route>
-                        </Switch>
+    render() {
+        return (
+            <Router>
+                <div className="App">
+                    <div className="container">
+                        <HeaderContainer/>
+                        <Navbar/>
+                        <div className="app-content-wrapper">
+                            <Switch>
+                                <Route path="/profile/:userId?">
+                                    <Profile/>
+                                </Route>
+                                <Route path="/dialogs">
+                                    <DialogsContainer/>
+                                </Route>
+                                <Route path="/music">
+                                    <Music/>
+                                </Route>
+                                <Route path="/news">
+                                    <News/>
+                                </Route>
+                                <Route path="/users">
+                                    <UsersContainer/>
+                                </Route>
+                                <Route path="/settings">
+                                    <Settings/>
+                                </Route>
+                                <Route path="/login">
+                                    <Login/>
+                                </Route>
+                            </Switch>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </Router>
-    );
+            </Router>
+        );
+    }
 }
 
+const mapStateToProps = (state) => {
 
+}
 
-export default App;
+export default connect(mapStateToProps, {getAuthUserThunk})(App)

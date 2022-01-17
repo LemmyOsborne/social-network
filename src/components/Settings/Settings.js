@@ -1,7 +1,7 @@
-import {NavLink} from "react-router-dom";
 import {connect} from "react-redux";
 import {logoutUserThunk} from "../../Redux/authReducer";
 import {useForm} from "react-hook-form";
+import withAuthRedirect from "../../hoc/withAuthRedirect";
 
 function Settings(props) {
     const {handleSubmit} = useForm()
@@ -9,6 +9,7 @@ function Settings(props) {
     const onSubmit = () => {
         props.logoutUserThunk()
     }
+
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -18,5 +19,6 @@ function Settings(props) {
     )
 }
 
-export default connect(null, {logoutUserThunk})(Settings);
+
+export default withAuthRedirect(connect(null, {logoutUserThunk})(Settings));
 

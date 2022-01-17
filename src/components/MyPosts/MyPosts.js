@@ -1,18 +1,22 @@
 import s from "./MyPosts.module.css"
 import Post from "./Post/Post";
 import React from "react";
+import {useForm} from "react-hook-form";
 
 function MyPosts(props) {
 
-    let postElements = props.posts.map(post => <Post id={post.id} message={post.message} />);
+    let postElements = props.posts.map((post, index) => <Post key={index} id={post.id} message={post.postText} />);
+
+    const {register, handleSubmit} = useForm()
+    const onSubmit = (postText) => props.addPost(postText)
 
     return (
         <div>
             My posts
-            <div>
-                <textarea onChange={props.onPostChange} value={props.newPostText} />
-                <button  onClick={props.addPost}>Add post</button>
-            </div>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <textarea {...register("postText")} />
+                <button>Add post</button>
+            </form>
             {postElements}
         </div>
     )

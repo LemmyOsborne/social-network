@@ -1,12 +1,14 @@
 import {authAPI} from "../api/api";
 
 const SET_AUTH_USER = "SET-AUTH-USER";
+const ERROR = "ERROR";
 
 const initialState = {
     id: null,
     email: null,
     login: null,
-    isAuth: false
+    isAuth: false,
+    error: null
 }
 
 
@@ -18,13 +20,18 @@ const authReducer = (state = initialState, action) => {
                 ...action.data,
                 isAuth: true
             }
+        case ERROR:
+            return {
+                ...state,
+                error: [...action.error]
+            }
         default:
             return state
     }
 }
 
 const setAuthUserData = (id, email, login, isAuth) => ({type: SET_AUTH_USER, data: {id, email, login, isAuth}});
-
+const handleError = (error) => ({type: ERROR, error})
 
 export const getAuthUserThunk = () => {
     return (dispatch) => {
@@ -44,8 +51,11 @@ export const loginUserThunk = (loginData) => {
             .then(data => {
                 if (data.resultCode === 0) {
                     dispatch(setAuthUserData())
+                } else {
+                     dispatch(handleError(data.messages))
                 }
             })
+
     }
 }
 export const logoutUserThunk = () => {
