@@ -33,17 +33,16 @@ const authReducer = (state = initialState, action) => {
 const setAuthUserData = (id, email, login, isAuth) => ({type: SET_AUTH_USER, data: {id, email, login, isAuth}});
 const handleError = (error) => ({type: ERROR, error})
 
-export const getAuthUserThunk = () => {
-    return (dispatch) => {
-        authAPI.getAuthUser()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    let {id, login, email} = data.data
-                    dispatch(setAuthUserData(id, email, login, true))
-                }
-            })
-    }
+export const getAuthUserThunk = () => (dispatch) => {
+    return authAPI.getAuthUser()
+        .then(data => {
+            if (data.resultCode === 0) {
+                let {id, login, email} = data.data
+                dispatch(setAuthUserData(id, email, login, true))
+            }
+        })
 }
+
 
 export const loginUserThunk = (loginData) => {
     return (dispatch) => {
@@ -52,14 +51,13 @@ export const loginUserThunk = (loginData) => {
                 if (data.resultCode === 0) {
                     dispatch(setAuthUserData())
                 } else {
-                     dispatch(handleError(data.messages))
+                    dispatch(handleError(data.messages))
                 }
             })
 
     }
 }
-export const logoutUserThunk = () => {
-    return (dispatch) => {
+export const logoutUserThunk = () => (dispatch) => {
         authAPI.logoutUser()
             .then(data => {
                 if (data.resultCode === 0) {
@@ -67,6 +65,6 @@ export const logoutUserThunk = () => {
                 }
             })
     }
-}
+
 
 export default authReducer;

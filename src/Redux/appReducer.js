@@ -10,6 +10,7 @@ export const appReducer = (state = initialState, action) => {
     switch (action.type) {
         case INITIALIZED:
             return {
+                ...state,
                 initialized: true
             }
         default:
@@ -17,9 +18,9 @@ export const appReducer = (state = initialState, action) => {
     }
 }
 
-const initializeApp = () => ({type: INITIALIZED})
+const initializeSuccess = () => ({type: INITIALIZED})
 
-export const initialize = () => async (dispatch) => {
+export const initializeApp = () => async (dispatch) => {
     await dispatch(getAuthUserThunk())
-    dispatch(initializeApp)
+     dispatch(initializeSuccess())
 }

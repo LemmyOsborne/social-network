@@ -5,15 +5,13 @@ import withAuthRedirect from "../../hoc/withAuthRedirect";
 
 function Settings(props) {
     const {handleSubmit} = useForm()
-
-    const onSubmit = () => {
-        props.logoutUserThunk()
+    const onSubmit =  () => {
+         props.logoutUserThunk()
     }
-
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <button type="submit">Log out</button>
+                <button>Log out</button>
             </form>
         </div>
     )

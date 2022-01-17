@@ -11,15 +11,20 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {Component} from "react";
 import {connect} from "react-redux";
-import {getAuthUserThunk} from "./Redux/authReducer";
+import {initializeApp} from "./Redux/appReducer";
+import Preloader from "./components/common/Preloader";
 
 
 class App extends Component {
     componentDidMount() {
-        this.props.getAuthUserThunk()
+        this.props.initializeApp()
     }
 
     render() {
+        if (!this.props.initialized) {
+            return <Preloader/>
+        }
+
         return (
             <Router>
                 <div className="App">
@@ -59,7 +64,9 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-
+    return {
+        initialized: state.app.initialized
+    }
 }
 
-export default connect(mapStateToProps, {getAuthUserThunk})(App)
+export default connect(mapStateToProps, {initializeApp})(App)
