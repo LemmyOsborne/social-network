@@ -33,38 +33,31 @@ const authReducer = (state = initialState, action) => {
 const setAuthUserData = (id, email, login, isAuth) => ({type: SET_AUTH_USER, data: {id, email, login, isAuth}});
 const handleError = (error) => ({type: ERROR, error})
 
-export const getAuthUserThunk = () => (dispatch) => {
-    return authAPI.getAuthUser()
-        .then(data => {
-            if (data.resultCode === 0) {
-                let {id, login, email} = data.data
-                dispatch(setAuthUserData(id, email, login, true))
-            }
-        })
-}
-
-
-export const loginUserThunk = (loginData) => {
-    return (dispatch) => {
-        authAPI.loginUser(loginData)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(setAuthUserData())
-                } else {
-                    dispatch(handleError(data.messages))
-                }
-            })
-
+export const getAuthUserThunk = () => async (dispatch) => {
+    let data = await authAPI.getAuthUser()
+    if (data.resultCode === 0) {
+        let {id, login, email} = data.data
+        dispatch(setAuthUserData(id, email, login, true))
     }
 }
-export const logoutUserThunk = () => (dispatch) => {
-        authAPI.logoutUser()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(setAuthUserData(null, null, null, false))
-                }
-            })
+
+
+export const loginUserThunk = (loginData) => async (dispatch) => {
+    let data = await authAPI.loginUser(loginData)
+    if (data.resultCode === 0) {
+        dispatch(setAuthUserData())
+    } else {
+        dispatch(handleError(data.messages))
     }
+
+}
+
+export const logoutUserThunk = () => async (dispatch) => {
+    let data = await authAPI.logoutUser()
+    if (data.resultCode === 0) {
+        dispatch(setAuthUserData(null, null, null, false))
+    }
+}
 
 
 export default authReducer;

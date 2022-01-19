@@ -4,6 +4,7 @@ import React from "react";
 import {useForm} from "react-hook-form";
 
 function MyPosts(props) {
+    console.log("render")
 
     let postElements = props.posts.map((post, index) => <Post key={index} id={post.id} message={post.postText} />);
 

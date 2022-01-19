@@ -79,46 +79,32 @@ export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, current
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
 export const toggleInProgress = (isFetching, userId) => ({type: TOGGLE_IN_PROGRESS, isFetching, userId});
 
-export const getUsersThunk = (currentPage, count) => {
-    return (dispatch) => {
-        dispatch(toggleIsFetching(true))
-        usersAPI.getUsers(currentPage, count)
-            .then(data => {
-                dispatch(toggleIsFetching(false));
-                dispatch(setUsers(data.items));
-                dispatch(getTotalCount(data.totalCount));
-            })
-    }
+export const getUsersThunk = (currentPage, count) => async (dispatch) => {
+    dispatch(toggleIsFetching(true))
+    let data = await usersAPI.getUsers(currentPage, count)
+    dispatch(toggleIsFetching(false));
+    dispatch(setUsers(data.items));
+    dispatch(getTotalCount(data.totalCount));
 }
 
-export const unfollowThunk = (userId) => {
-    return (dispatch) => {
-        dispatch(toggleInProgress(true, userId))
-        usersAPI.unfollow(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(unfollowSuccess(userId))
-                }
-                dispatch(toggleInProgress(false, userId))
-            })
-            .catch(error => alert(error))
+
+export const unfollowThunk = (userId) => async (dispatch) => {
+    dispatch(toggleInProgress(true, userId))
+    let data = await usersAPI.unfollow(userId)
+    if (data.resultCode === 0) {
+        dispatch(unfollowSuccess(userId))
     }
+    dispatch(toggleInProgress(false, userId))
 }
 
-export const followThunk = (userId) => {
-    return (dispatch) => {
-        dispatch(toggleInProgress(true, userId))
-        usersAPI.follow(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(followSuccess(userId))
-                }
-                dispatch(toggleInProgress(false, userId))
-            })
-            .catch(error => alert(error))
+export const followThunk = (userId) => async (dispatch) => {
+    dispatch(toggleInProgress(true, userId))
+    let data = await usersAPI.follow(userId)
+    if (data.resultCode === 0) {
+        dispatch(followSuccess(userId))
     }
+    dispatch(toggleInProgress(false, userId))
 }
-
 
 
 export default usersReducer;

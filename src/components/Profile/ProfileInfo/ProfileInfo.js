@@ -4,7 +4,7 @@ import userPhoto from "../../../assets/user.png"
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
 
 
-function ProfileInfo(props) {
+const ProfileInfo = (props) => {
     if (!props.profile) {
         return <Preloader/>
     }

@@ -5,7 +5,6 @@ const SET_PROFILE = "SET-PROFILE";
 const SET_USER_STATUS = "SET-USER-STATUS";
 
 
-
 let initialState = {
     posts: [
         {id: 1, postText: "This is my second post!"},
@@ -14,7 +13,6 @@ let initialState = {
     profile: null,
     status: ""
 }
-
 
 
 const profileReducer = (state = initialState, action) => {
@@ -45,35 +43,22 @@ export const setProfile = (profile) => ({type: SET_PROFILE, profile})
 export const setUserStatus = (status) => ({type: SET_USER_STATUS, status})
 
 
-
-export const getUserProfileThunk = (userId) => {
-    return (dispatch) => {
-        profileAPI.getUserProfile(userId)
-                .then(data => {
-                    dispatch(setProfile(data))
-                })
-    }
+export const getUserProfileThunk = (userId) => async (dispatch) => {
+    let data = await profileAPI.getUserProfile(userId)
+    dispatch(setProfile(data))
 }
 
-export const getUserStatusThunk = (userId) => {
-    return (dispatch) => {
-        profileAPI.getUserStatus(userId)
-            .then(data => {
-                dispatch(setUserStatus(data))
-            })
-    }
+
+export const getUserStatusThunk = (userId) => async (dispatch) => {
+    let data = await profileAPI.getUserStatus(userId)
+    dispatch(setUserStatus(data))
 }
 
-export const updateUserStatusThunk = (status) => {
-    return (dispatch) => {
-        profileAPI.updateUserStatus(status)
-            .then(data => {
-                if (data.resultCode === 0)
-                dispatch(setUserStatus(status))
-            })
-    }
+export const updateUserStatusThunk = (status) => async (dispatch) => {
+    let data = await profileAPI.updateUserStatus(status)
+    if (data.resultCode === 0)
+        dispatch(setUserStatus(status))
 }
-
 
 
 export default profileReducer;
